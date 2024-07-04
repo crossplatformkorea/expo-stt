@@ -43,9 +43,9 @@
       <true/>
     </dict>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Hi2</string>
+    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Hi</string>
+    <string>Allow $(PRODUCT_NAME) to access your speech recognition</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
