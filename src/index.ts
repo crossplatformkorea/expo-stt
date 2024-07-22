@@ -14,23 +14,20 @@ import {
 } from "./ExpoStt.types";
 import ExpoSttModule from "./ExpoSttModule";
 
+export function requestRecognitionPermission(): Promise<PermissionResponse> {
+  return ExpoSttModule.requestRecognitionPermission();
+}
+export function checkRecognitionPermission(): Promise<PermissionResponse> {
+  return ExpoSttModule.checkRecognitionPermission();
+}
 export function startSpeech(): boolean {
   return ExpoSttModule.startSpeech();
 }
 export function stopSpeech(): void {
   return ExpoSttModule.stopSpeech();
 }
-export function cancelSpeech(): void {
-  return ExpoSttModule.cancelSpeech();
-}
 export function destroySpeech(): void {
   return ExpoSttModule.destroySpeech();
-}
-export function requestRecognitionPermission(): Promise<PermissionResponse> {
-  return ExpoSttModule.requestRecognitionPermission();
-}
-export function checkRecognitionPermission(): Promise<PermissionResponse> {
-  return ExpoSttModule.checkRecognitionPermission();
 }
 
 const emitter = new EventEmitter(ExpoSttModule ?? NativeModulesProxy.ExpoStt);
@@ -38,21 +35,27 @@ const emitter = new EventEmitter(ExpoSttModule ?? NativeModulesProxy.ExpoStt);
 export function addOnSpeechStartListener(listener: () => void): Subscription {
   return emitter.addListener<void>(ReactEvents.onSpeechStart, listener);
 }
-export function addOnSpeechEndListener(listener: () => void): Subscription {
-  return emitter.addListener(ReactEvents.onSpeechEnd, listener);
-}
-export function addOnSpeechCancelledListener(
-  listener: () => void
-): Subscription {
-  return emitter.addListener<void>(ReactEvents.onSpeechCancelled, listener);
-}
+
 export function addOnSpeechResultListener(
   listener: (event: OnSpeechResultEventPayload) => void
 ): Subscription {
-  return emitter.addListener<OnSpeechResultEventPayload>(
-    ReactEvents.onSpeechResult,
-    listener
-  );
+  return emitter.addListener<
+    OnSpeechResultEventPayload & { results: string[] }
+  >("onSpeechResult", (event) => {
+    const results = event.results;
+
+    if (results && Array.isArray(results)) {
+      const joinedResults = results.join(" ");
+      console.log(joinedResults);
+      listener(event);
+
+      return;
+    }
+  });
+}
+
+export function addOnSpeechEndListener(listener: () => void): Subscription {
+  return emitter.addListener(ReactEvents.onSpeechEnd, listener);
 }
 
 export function addOnSpeechErrorListener(
