@@ -139,7 +139,13 @@ class ExpoSttModule : Module(), RecognitionListener {
     override fun onResults(results: Bundle?) {
         isRecognizing = false
         val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        sendEvent(onSpeechResult, mapOf("results" to matches))
+
+        if (matches != null) {
+            sendEvent(onSpeechResult, mapOf("results" to matches))
+        } else {
+            sendEvent(onSpeechError, mapOf("errorMessage" to "No speech results"))
+        }
+
         Log.d(TAG, "onResults $matches")
     }
 

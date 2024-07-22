@@ -35,14 +35,25 @@ const emitter = new EventEmitter(ExpoSttModule ?? NativeModulesProxy.ExpoStt);
 export function addOnSpeechStartListener(listener: () => void): Subscription {
   return emitter.addListener<void>(ReactEvents.onSpeechStart, listener);
 }
+
 export function addOnSpeechResultListener(
   listener: (event: OnSpeechResultEventPayload) => void
 ): Subscription {
-  return emitter.addListener<OnSpeechResultEventPayload>(
-    ReactEvents.onSpeechResult,
-    listener
-  );
+  return emitter.addListener<
+    OnSpeechResultEventPayload & { results: string[] }
+  >("onSpeechResult", (event) => {
+    const results = event.results;
+
+    if (results && Array.isArray(results)) {
+      const joinedResults = results.join(" ");
+      console.log(joinedResults);
+      listener(event);
+
+      return;
+    }
+  });
 }
+
 export function addOnSpeechEndListener(listener: () => void): Subscription {
   return emitter.addListener(ReactEvents.onSpeechEnd, listener);
 }
