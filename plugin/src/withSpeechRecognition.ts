@@ -5,7 +5,7 @@ import {
   withInfoPlist,
 } from "@expo/config-plugins";
 
-const pkg = require("expo-stt/package.json");
+const pkg = require("@crossplatformkorea/expo-stt/package.json");
 
 const MICROPHONE_USAGE = "Allow $(PRODUCT_NAME) to access your microphone";
 const SPEECHRECOGNITION_USAGE =
