@@ -1,6 +1,6 @@
 {
   "name": "@crossplatformkorea/expo-stt",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Unofficial Speech To Text module for Expo which supports iOS and Android",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,13 +24,16 @@
     "expo-stt",
     "ExpoStt"
   ],
-  "repository": "https://github.com/anhtuank7c/expo-stt",
-  "bugs": {
-    "url": "https://github.com/anhtuank7c/expo-stt/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crossplatformkorea/expo-stt.git"
   },
-  "author": "Tuan Nguyen Anh <anhtuank7c@hotmail.com> (https://github.com/anhtuank7c)",
+  "bugs": {
+    "url": "https://github.com/crossplatformkorea/expo-stt/issues"
+  },
+  "author": "Cross-Platform Korea <crossplatformkorea@gmail.com> (https://github.com/crossplatformkorea)",
   "license": "MIT",
-  "homepage": "https://github.com/anhtuank7c/expo-stt#readme",
+  "homepage": "https://github.com/crossplatformkorea/expo-stt#readme",
   "jest": {
     "preset": "expo-module-scripts"
   },
